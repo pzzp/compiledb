@@ -19,7 +19,7 @@ YCM-generator's fake-toolchanin approach.
 ## Installation
 
 ```
-# pip install compiledb
+# python3 -m setup.py install
 ```
 - Supports Python >= 3.3
 - For bash completion support, add the content of `sh-completion/compiledb.bash` file
