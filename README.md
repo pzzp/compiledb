@@ -18,12 +18,25 @@ YCM-generator's fake-toolchanin approach.
 
 ## Installation
 
+Clone the source repository and use the checkout directly:
+
+```bash
+$ git clone https://github.com/nickdiego/compiledb.git
+$ cd compiledb
 ```
-# python3 -m setup.py install
+
+When running it from another project, point `PYTHONPATH` at the checkout:
+
+```bash
+$ export PYTHONPATH=/path/to/compiledb
 ```
+
 - Supports Python >= 3.3
 - For bash completion support, add the content of `sh-completion/compiledb.bash` file
   to your `.bashrc` file, for example.
+
+Using the checkout directly makes the latest compiler and file-extension support available
+before a new PyPI release.
 
 ## Usage
 
@@ -34,21 +47,21 @@ resulting in a command-line interface similar to [Bear][bear].
 To generate `compile_commands.json` file using compiledb's "make wrapper" script,
 executing Makefile target `all`:
 ```bash
-$ compiledb make
+$ python3 -m compiledb make
 ```
 
 `compiledb` forwards all the options/arguments passed after `make` subcommand to GNU Make,
 so one can, for example, generate `compile_commands.json` using `core/main.mk`
 as main makefile (`-f` flag), starting the build from `build` directory (`-C` flag):
 ```bash
-$ compiledb make -f core/main.mk -C build
+$ python3 -m compiledb make -f core/main.mk -C build
 ```
 
 By default, `compiledb make` generates the compilation database and runs the actual build
 command requested (acting as a make wrapper), the build step can be skipped using the `-n`
 or `--no-build` options.
 ```bash
-$ compiledb -n make
+$ python3 -m compiledb -n make
 ```
 
 `compiledb` base command has been designed so that it can be used to parse compile commands
@@ -58,24 +71,24 @@ from arbitrary text files (or stdin), assuming it has a build log (ideally gener
 For example, to generate the compilation database from `build-log.txt` file, use the following
 command.
 ```bash
-$ compiledb --parse build-log.txt
+$ python3 -m compiledb --parse build-log.txt
 ```
 
 or its equivalent:
 ```bash
-$ compiledb < build-log.txt
+$ python3 -m compiledb < build-log.txt
 ```
 
 Or even, to pipe make's output and print the compilation database to the standard output:
 ```bash
-$ make -Bnwk | compiledb -o-
+$ make -Bnwk | python3 -m compiledb -o-
 ```
 
 By default `compiledb` generates a JSON compilation database in the "arguments" list
 [format](https://clang.llvm.org/docs/JSONCompilationDatabase.html). The "command" string
 format is also supported through the use of the `--command-style` flag:
 ```bash
-$ compiledb --command-style make
+$ python3 -m compiledb --command-style make
 ```
 
 ## Testing / Contributing
